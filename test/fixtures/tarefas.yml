@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  descricao: MyText
+  deadline: 2017-10-13
+  severidade: 1
+  realizada: 1
+
+two:
+  descricao: MyText
+  deadline: 2017-10-13
+  severidade: 1
+  realizada: 1
