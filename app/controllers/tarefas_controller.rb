@@ -15,7 +15,8 @@ class TarefasController < ApplicationController
 
   # POST /tarefas
   def create
-    @tarefa = Tarefa.new(tarefa_params)
+    @tarefa = Tarefa.new(tarefa_params.permit!)
+    puts "Tarefa: #{@tarefa}"
 
     if @tarefa.save
       render json: @tarefa, status: :created, location: @tarefa
@@ -46,6 +47,8 @@ class TarefasController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def tarefa_params
-      params.fetch(:tarefa, {})
+      p = params.fetch(:tarefa, {})
+      puts "Parametros = #{p}"
+      return p
     end
 end
