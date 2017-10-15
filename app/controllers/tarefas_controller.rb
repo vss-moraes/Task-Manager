@@ -27,7 +27,7 @@ class TarefasController < ApplicationController
 
   # PATCH/PUT /tarefas/1
   def update
-    if @tarefa.update(tarefa_params)
+    if @tarefa.update(tarefa_params.permit!)
       render json: @tarefa
     else
       render json: @tarefa.errors, status: :unprocessable_entity
