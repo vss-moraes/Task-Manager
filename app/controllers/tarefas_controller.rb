@@ -3,7 +3,7 @@ class TarefasController < ApplicationController
 
   # GET /tarefas
   def index
-    @tarefas = Tarefa.all
+    @tarefas = Tarefa.all.order(severidade: :desc)
 
     render json: @tarefas
   end
