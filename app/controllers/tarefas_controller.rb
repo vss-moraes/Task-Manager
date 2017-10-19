@@ -15,7 +15,7 @@ class TarefasController < ApplicationController
 
   # POST /tarefas
   def create
-    @tarefa = Tarefa.new(tarefa_params.permit!)
+    @tarefa = Tarefa.new(tarefa_params)
     puts "Tarefa: #{@tarefa}"
 
     if @tarefa.save
@@ -27,7 +27,7 @@ class TarefasController < ApplicationController
 
   # PATCH/PUT /tarefas/1
   def update
-    if @tarefa.update(tarefa_params.permit!)
+    if @tarefa.update(tarefa_params)
       render json: @tarefa
     else
       render json: @tarefa.errors, status: :unprocessable_entity
@@ -47,8 +47,6 @@ class TarefasController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def tarefa_params
-      p = params.fetch(:tarefa, {})
-      puts "Parametros = #{p}"
-      return p
+      params.fetch(:tarefa, {}).permit(:descricao, :deadline, :severidade, :realizada)
     end
 end
