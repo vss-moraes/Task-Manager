@@ -8,6 +8,39 @@ class TarefasController < ApplicationController
     render json: @tarefas
   end
 
+  def estatisticas
+    finalizadas = Tarefa.where(realizada: 1)
+    abertas = Tarefa.where(realizada: 0)
+    todas = Tarefa.all
+    @stats = {
+      finalizadas: {
+        total: finalizadas.count,
+        com_atraso: finalizadas.where("updated_at > deadline").count,
+        no_prazo: finalizadas.where("updated_at <= deadline").count,
+        baixa: finalizadas.where(severidade: 0).count,
+        media: finalizadas.where(severidade: 1).count,
+        alta: finalizadas.where(severidade: 2).count,
+        urgente: finalizadas.where(severidade: 3).count,
+      },
+      abertas: {
+        total: abertas.count,
+        baixa: abertas.where(severidade: 0).count,
+        media: abertas.where(severidade: 1).count,
+        alta: abertas.where(severidade: 2).count,
+        urgente: abertas.where(severidade: 3).count,
+      },
+      todas: {
+        total: todas.count,
+        baixa: todas.where(severidade: 0).count,
+        media: todas.where(severidade: 1).count,
+        alta: todas.where(severidade: 2).count,
+        urgente: todas.where(severidade: 3).count,
+      }
+    }
+
+    render json: @stats
+  end
+
   # GET /tarefas/1
   def show
     render json: @tarefa
