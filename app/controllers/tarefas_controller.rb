@@ -3,7 +3,7 @@ class TarefasController < ApplicationController
 
   # GET /tarefas
   def index
-    @tarefas = Tarefa.where(realizada: 0).order(severidade: :desc)
+    @tarefas = Tarefa.where(realizada: 0).order(deadline: :asc, severidade: :desc)
 
     render json: @tarefas
   end
